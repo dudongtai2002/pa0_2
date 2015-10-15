@@ -10,6 +10,7 @@ import java.util.*;
  * @author dudongtai
  */
 public class Server {
+    int current_algo; // 0 for FIFO, 1 for RR, 2 for DRR.
     double Rate=1;
     double offer_load;
     long current_time;
@@ -71,22 +72,60 @@ public class Server {
         switch(current_event.type){
             case "arrival":   //If a new packet arrives, put it in the relating waiting queue.
                  int id=current_event.packet.source_id;
-                 queue.get(id).add(current_event.packet);break;
-            case "departure": // If the event is departure, make the current packet leave
+                 queue.get(id).add(current_event.packet);
+                 //create a the next packet with the same source
+                 Packet next=new Packet(this.sourcelist.get(id),this.current_time);
+                 Event next_e=new Event(next,"arrival",this);
+                 this.position_event(next_e);
+                 break;
+            case "departure": // If the event is departure, record the numbers
                  this.current_packet.transmission_time=this.current_time;
                  this.total_packet+=1;
                  this.total_bits+=current_packet.size;
                  this.total_delay+=current_packet.start_time-current_packet.arrive_time;
-                 this.busy=false;break;
+                 //send the packet to the universe :)
+                 this.busy=false;current_packet=null;break;
             default:
                 System.out.println("find unidentified event!");return;
         }
-        
-        
+        read(); 
+    }
+    //function to get a packet from the queue and working on it.
+    public void read(){
+        //You have to ensure the server it's not working on something.
+        if(this.busy){
+            return;
+        }
+        //use the algorithnm to get a packet.
+        switch(current_algo){
+            case 0: this.current_packet=FIFO();break;
+            case 1: this.current_packet=RR();break;  
+            case 2: this.current_packet=DRR();break;
+            default: System.out.println("algorithnm does not exist");
+        }
+        if(current_packet==null){
+            System.out.println("cannot get a packet from queue");
+        }else{
+        current_packet.start_time=this.current_time;
+        //generate the departure event.
+        Event departure=new Event(current_packet,"departure",this);
+        position_event(departure);
+        }
         
     }
     
-    
+    public Packet FIFO(){
+       return null; 
+    }
+    public Packet RR(){
+       return null; 
+    }        
+    public Packet DRR(){
+       return null; 
+    }
+    public void position_event(Event e){
+        
+    }
     
     
     
