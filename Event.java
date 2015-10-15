@@ -10,5 +10,20 @@ package pa0_2;
  * @author dudongtai
  */
 public class Event {
+    String type;  //arrival or departure.
+    Packet packet;
+    long time;
+    Server server;
+    public Event(Packet pk,String type,Server sv){
+        this.packet=pk;
+        this.type=type;
+        this.server=sv;
+        if(type.equals("arrival")){       //when make a new arrival event
+            time=pk.arrive_time;
+        }else{
+            time=(long)(pk.size/server.Rate)+server.current_time;    //when make a new departure event.
+    }
     
+    
+}
 }

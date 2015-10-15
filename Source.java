@@ -8,7 +8,7 @@ package pa0_2;
  * @author dudongtai
  */
 public class Source {
-    String type;
+    String type;   //telnet, ftp or rogue
     double rate;
     int packet_size;
     int id;

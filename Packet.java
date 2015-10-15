@@ -12,6 +12,15 @@ public class Packet {
     public int source_id;
     long arrive_time;
     
+    //constructor for packet, for bootstrap use.
+    public Packet(Source source){
+        this.source_id=source.id;
+        this.size=exp_rand(source.packet_size);
+        this.arrive_time=0;      
+        }
+    
+    
+    
     //constructor for packet, use specific source and time;
    
     public Packet(Source source,long time){
