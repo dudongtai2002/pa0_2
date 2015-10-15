@@ -23,16 +23,16 @@ public class Packet {
     
     
     
-    //constructor for packet, use specific source and time;
+    //constructor for packet, use specific source and time, being called in the event "arrival"
    
     public Packet(Source source,long time){
         this.source_id=source.id;
         this.size=exp_rand(source.packet_size);
-        this.arrive_time=time+(long)(size/source.rate);        
+        this.arrive_time=time+exp_rand((int)(source.packet_size/source.rate));        
         }
  
-    //function for generate exponential distribution random number
-    public int exp_rand(int mean){
+    //function for generate exponential distributio n random number
+    public static int exp_rand(int mean){
         
         int a=0;
         while(a==0){

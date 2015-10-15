@@ -122,6 +122,7 @@ public class Server {
         int queue_id=-1;
         long check_time=Long.MAX_VALUE;
         for(int i=0;i<this.queue.size();i++){
+          //Below is the for testing purpose
           /* if(this.queue.get(i).isEmpty()){
                System.out.println("queue "+i+ "is empty");
            }*/ 
@@ -137,6 +138,9 @@ public class Server {
         return queue.get(queue_id).removeFirst();
     }
     public Packet RR(){
+        
+        
+        
        return null; 
     }        
     public Packet DRR(){
