@@ -22,7 +22,7 @@ public class Source {
                 packet_size=8192;break;
             case "rogue":
                 packet_size=5000;
-                this.rate=0.5;break;
+                break;
         }
     }
 }
