@@ -13,7 +13,7 @@ public class PA0 {
 
     public static void main(String[] args) {
        double offer_load=2;
-       Server server=new Server(offer_load,0);
+       Server server=new Server(offer_load,1);
        server.init();
        int i=0;
        while(server.total_packet<=100){
@@ -24,19 +24,8 @@ public class PA0 {
                    
        }
        
-       System.out.println(server.total_bits+"bits and "+server.total_delay+"ms");
+       System.out.println(server.total_bits+" bits and "+server.total_delay+"ms");
     }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
+}
     
 

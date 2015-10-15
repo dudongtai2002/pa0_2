@@ -5,7 +5,7 @@ package pa0_2;
 import java.util.*;
 
 /**
- * @author dudongtai
+ * @author Dongtai Du
  */
 public class Packet {
     public int size;

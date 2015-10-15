@@ -1,13 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ This is the Server Class, where the most of the program architecture and procedure
+function was implemented.
  */
 package pa0_2;
 import java.util.*;
 /**
- *
- * @author dudongtai
+ * @author Dongtai Du
  */
 public class Server {
     int current_algo; // 0 for FIFO, 1 for RR, 2 for DRR.
@@ -16,6 +14,7 @@ public class Server {
     long current_time;
     ArrayList<LinkedList<Packet>> queue=new ArrayList <>();
     ArrayList<Event> timeline=new ArrayList<> ();
+    int current_queue;// The "queue" pointer, used in RR and DRR
     int total_packet;
     long total_bits;
     long total_delay;
@@ -32,7 +31,7 @@ public class Server {
         total_bits=0;
         total_delay=0;
         offer_load=M;
-        current_algo=algo; //0 for FIFO
+        current_algo=algo; //pass the user option of the algorithmn using
         this.busy=false;
         //Source 0 to 3 is telnet
         for(int i=0;i<=3;i++){
@@ -49,7 +48,7 @@ public class Server {
         //Source 10 is the rogue
             Source rg=new Source("rogue",Rate/2);
             sourcelist.add(rg);
-        
+        this.current_queue=0;//make then pointer point at the first one.
      
     }
     //put the first 11 packet in the timeline
@@ -137,11 +136,21 @@ public class Server {
         
         return queue.get(queue_id).removeFirst();
     }
+    // The RR algorithnm, the server checks the queue one by one, 
+    // get a pacekt and move to the subsequent unempty queue.
     public Packet RR(){
+        int i=0;
         
+        do{
+           current_queue++;
+           i++;
+           if(!queue.get(current_queue%11).isEmpty()){
+              return queue.get(current_queue%11).removeFirst(); 
+           }
+        }while(i<10);
         
-        
-       return null; 
+        System.out.println("All queue are empty!");
+        return null; 
     }        
     public Packet DRR(){
        return null; 

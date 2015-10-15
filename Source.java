@@ -5,7 +5,7 @@ package pa0_2;
 
 /**
  *
- * @author dudongtai
+ * @author Dontai Du
  */
 public class Source {
     String type;   //telnet, ftp or rogue

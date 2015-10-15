@@ -1,13 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ Event class. Event class hold a instance of a packet and was the basic unit of the timeline.
  */
 package pa0_2;
 
 /**
- *
- * @author dudongtai
+ * @author Dongtai Du
  */
 public class Event {
     String type;  //arrival or departure.
