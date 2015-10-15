@@ -10,13 +10,15 @@ import java.util.*;
 public class Packet {
     public int size;
     public int source_id;
-    long arrive_time;
-    
+    long arrive_time;   // the time arrived at the server.
+    long start_time;   //the time when the server starts to process it
+    long transmission_time;  //time when the packet leaves server.
     //constructor for packet, for bootstrap use.
     public Packet(Source source){
         this.source_id=source.id;
         this.size=exp_rand(source.packet_size);
-        this.arrive_time=0;      
+        this.arrive_time=0;  
+        
         }
     
     
@@ -29,7 +31,7 @@ public class Packet {
         this.arrive_time=time+(long)(size/source.rate);        
         }
  
-  
+    //function for generate exponential distribution random number
     public int exp_rand(int mean){
         
         int a=0;

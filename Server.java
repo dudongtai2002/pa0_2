@@ -53,14 +53,38 @@ public class Server {
     public void init(){
         for(int i=0;i<11;i++){
             Packet init_packet=new Packet(sourcelist.get(i));
-            
-            
-            
+            Event init_event=new Event(init_packet,"arrival",this);
+            timeline.add(init_event);
             
         }
+        System.out.println("The server is ready!");
     }
-    
-    
+    //each "move" for the server, just get the head event and implement it.
+    public void flip(){
+        if(timeline.isEmpty()){
+            System.out.println("Timeline is Empty!");
+            return;
+        }
+        current_time=timeline.get(0).time;
+        Event current_event=timeline.get(0);
+        timeline.remove(0);
+        switch(current_event.type){
+            case "arrival":   //If a new packet arrives, put it in the relating waiting queue.
+                 int id=current_event.packet.source_id;
+                 queue.get(id).add(current_event.packet);break;
+            case "departure": // If the event is departure, make the current packet leave
+                 this.current_packet.transmission_time=this.current_time;
+                 this.total_packet+=1;
+                 this.total_bits+=current_packet.size;
+                 this.total_delay+=current_packet.start_time-current_packet.arrive_time;
+                 this.busy=false;break;
+            default:
+                System.out.println("find unidentified event!");return;
+        }
+        
+        
+        
+    }
     
     
     
