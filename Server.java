@@ -103,6 +103,7 @@ public class Server {
             case 2: this.current_packet=DRR();break;
             default: System.out.println("algorithnm does not exist");
         }
+        
         if(current_packet==null){
             System.out.println("cannot get a packet from queue");
         }else{
@@ -123,7 +124,22 @@ public class Server {
     public Packet DRR(){
        return null; 
     }
+    //This function put the event at the right position in the timeline
+    //not a good algorithnm, can be optimized.
     public void position_event(Event e){
+        int pos;
+        long time1=e.time;
+        if(this.timeline.isEmpty()==false){
+        for(pos=0;pos<this.timeline.size();pos++){
+            if (time1<=this.timeline.get(pos).time){
+                this.timeline.add(pos, e);
+                return;
+            }
+            
+        }
+        }
+        this.timeline.add(e);
+        
         
     }
     
