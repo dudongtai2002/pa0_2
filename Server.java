@@ -73,7 +73,7 @@ public class Server {
             case "arrival":   //If a new packet arrives, put it in the relating waiting queue.
                  int id=current_event.packet.source_id;
                  queue.get(id).add(current_event.packet);
-                 //create a the next packet with the same source
+                 //create the next packet with the same source
                  Packet next=new Packet(this.sourcelist.get(id),this.current_time);
                  Event next_e=new Event(next,"arrival",this);
                  this.position_event(next_e);
