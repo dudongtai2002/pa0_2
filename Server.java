@@ -22,7 +22,7 @@ public class Server {
     ArrayList<Source> sourcelist=new ArrayList<>();
     boolean busy;
     Packet current_packet;
-    public Server(double M){
+    public Server(double M,int algo){
         current_time=0;
         for(int i=0;i<11;i++){
             LinkedList<Packet> a=new LinkedList<>();
@@ -32,6 +32,8 @@ public class Server {
         total_bits=0;
         total_delay=0;
         offer_load=M;
+        current_algo=algo; //0 for FIFO
+        this.busy=false;
         //Source 0 to 3 is telnet
         for(int i=0;i<=3;i++){
             Source a=new Source("telnet",offer_load/10*Rate);
@@ -88,12 +90,12 @@ public class Server {
             default:
                 System.out.println("find unidentified event!");return;
         }
-        read(); 
+        this.read(); 
     }
     //function to get a packet from the queue and working on it.
     public void read(){
         //You have to ensure the server it's not working on something.
-        if(this.busy){
+        if(this.busy==true){
             return;
         }
         //use the algorithnm to get a packet.
@@ -106,7 +108,8 @@ public class Server {
         
         if(current_packet==null){
             System.out.println("cannot get a packet from queue");
-        }else{
+        }else{//begin transmitting the packet
+        this.busy=true;    
         current_packet.start_time=this.current_time;
         //generate the departure event.
         Event departure=new Event(current_packet,"departure",this);
@@ -119,15 +122,19 @@ public class Server {
         int queue_id=-1;
         long check_time=Long.MAX_VALUE;
         for(int i=0;i<this.queue.size();i++){
+          /* if(this.queue.get(i).isEmpty()){
+               System.out.println("queue "+i+ "is empty");
+           }*/ 
            if(this.queue.get(i).isEmpty()==false&&queue.get(i).element().arrive_time<check_time){
                queue_id=i;
            }
         }
-        if(queue_id==-1){                
-          return null; 
+        if(queue_id==-1){      
+          System.out.println("All queue are empty!");
+          return null;   
         }
-        Packet temp=queue.get(queue_id).removeFirst();
-        return temp;
+        
+        return queue.get(queue_id).removeFirst();
     }
     public Packet RR(){
        return null; 

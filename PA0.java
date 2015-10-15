@@ -12,9 +12,19 @@ package pa0_2;
 public class PA0 {
 
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(1);
-        //s
+       double offer_load=2;
+       Server server=new Server(offer_load,0);
+       server.init();
+       int i=0;
+       while(server.total_packet<=100){
+           server.flip();
+           i++;
+           System.out.print(i);
+           System.out.println("tt pk:"+server.total_packet);
+                   
+       }
+       
+       System.out.println(server.total_bits+"bits and "+server.total_delay+"ms");
     }
         
         

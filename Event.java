@@ -20,9 +20,12 @@ public class Event {
         this.server=sv;
         if(type.equals("arrival")){       //when make a new arrival event
             time=pk.arrive_time;
-        }else{
+        }else if(type.equals("departure")){
             time=(long)(pk.size/server.Rate)+server.current_time;    //when make a new departure event.
-    }
+        }else{
+            System.out.println("Unknown event type!");
+            
+        }
     
     
 }
