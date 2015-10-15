@@ -114,9 +114,20 @@ public class Server {
         }
         
     }
-    
+    //First in First out, search the head of the 11 queue, find the packet with smallest arrival time
     public Packet FIFO(){
-       return null; 
+        int queue_id=-1;
+        long check_time=Long.MAX_VALUE;
+        for(int i=0;i<this.queue.size();i++){
+           if(this.queue.get(i).isEmpty()==false&&queue.get(i).element().arrive_time<check_time){
+               queue_id=i;
+           }
+        }
+        if(queue_id==-1){                
+          return null; 
+        }
+        Packet temp=queue.get(queue_id).removeFirst();
+        return temp;
     }
     public Packet RR(){
        return null; 
