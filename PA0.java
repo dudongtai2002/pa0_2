@@ -19,8 +19,8 @@ public class PA0 {
        while(server.total_packet<=100){
            server.flip();
            i++;
-           System.out.print(i);
-           System.out.println("tt pk:"+server.total_packet);
+           System.out.print("loop number:"+i+"  ");
+           System.out.println("total packet transmitted:"+server.total_packet);
                    
        }
        
