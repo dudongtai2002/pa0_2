@@ -15,6 +15,7 @@ public class Server {
     ArrayList<LinkedList<Packet>> queue=new ArrayList <>();
     ArrayList<Event> timeline=new ArrayList<> ();
     int current_queue;// The "queue" pointer, used in RR and DRR
+    
     int total_packet;
     long total_bits;
     long total_delay;
@@ -35,18 +36,18 @@ public class Server {
         this.busy=false;
         //Source 0 to 3 is telnet
         for(int i=0;i<=3;i++){
-            Source a=new Source("telnet",offer_load/10*Rate);
+            Source a=new Source("telnet",offer_load/10.0*(double)Rate);
             a.id=i;
             sourcelist.add(a);
         }
         //Source 4 to 9 is ftp
         for(int i=4;i<=9;i++){
-            Source a=new Source("ftp",offer_load/10*Rate);
+            Source a=new Source("ftp",offer_load/10.0*(double)Rate);
             a.id=i;
             sourcelist.add(a);
         }
         //Source 10 is the rogue
-            Source rg=new Source("rogue",Rate/2);
+            Source rg=new Source("rogue",(double)Rate/2.0);
             sourcelist.add(rg);
         this.current_queue=0;//make then pointer point at the first one.
      
@@ -153,6 +154,12 @@ public class Server {
         return null; 
     }        
     public Packet DRR(){
+        
+        
+        
+        
+        
+        
        return null; 
     }
     //This function put the event at the right position in the timeline

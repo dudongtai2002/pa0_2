@@ -12,19 +12,19 @@ package pa0_2;
 public class PA0 {
 
     public static void main(String[] args) {
-       double offer_load=2;
-       Server server=new Server(offer_load,1);
+       double offer_load=0.6;
+       Server server=new Server(offer_load,0);
        server.init();
        int i=0;
        while(server.total_packet<=100){
-           server.flip();
+           server.flip();// The server would accept next event and move to next state.
            i++;
            System.out.print("loop number:"+i+"  ");
            System.out.println("total packet transmitted:"+server.total_packet);
                    
        }
        
-       System.out.println(server.total_bits+" bits and "+server.total_delay+"ms");
+       System.out.println(server.total_bits+" bits and "+server.total_delay+"ms"+" "+server.current_time);
     }
 }
     

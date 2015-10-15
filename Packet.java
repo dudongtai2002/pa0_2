@@ -16,7 +16,7 @@ public class Packet {
     //constructor for packet, for bootstrap use.
     public Packet(Source source){
         this.source_id=source.id;
-        this.size=exp_rand(source.packet_size);
+        this.size=(int)exp_rand(source.packet_size);
         this.arrive_time=0;  
         
         }
@@ -27,18 +27,18 @@ public class Packet {
    
     public Packet(Source source,long time){
         this.source_id=source.id;
-        this.size=exp_rand(source.packet_size);
-        this.arrive_time=time+exp_rand((int)(source.packet_size/source.rate));        
+        this.size=(int)exp_rand(source.packet_size);
+        this.arrive_time=time+exp_rand(source.packet_size/source.rate);        
         }
  
     //function for generate exponential distributio n random number
-    public static int exp_rand(int mean){
+    public static long exp_rand(double mean){
         
-        int a=0;
+        long a=0;
         while(a==0){
         Random gen=new Random(System.nanoTime());
         double r=gen.nextDouble();
-        a=(int)((-1)*(Math.log(r))*mean);
+        a=(long)((-1)*(Math.log(r))*mean);
         }
         
         return a;
