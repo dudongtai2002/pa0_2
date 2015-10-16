@@ -28,7 +28,8 @@ public class Packet {
     public Packet(Source source,long time){
         this.source_id=source.id;
         this.size=(int)exp_rand(source.packet_size);
-        this.arrive_time=time+exp_rand(source.packet_size/source.rate);        
+        this.arrive_time=time+exp_rand(source.packet_size/source.rate); 
+        source.number++;
         }
  
     //function for generate exponential distributio n random number

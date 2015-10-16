@@ -52,6 +52,7 @@ public class Server {
         }
         //Source 10 is the rogue
             Source rg=new Source("rogue",(double)Rate/2.0);
+            rg.id=10;
             sourcelist.add(rg);
         this.current_queue=0;//make then pointer point at the first one.
         credit=new int[11];  //init the array of credit.
@@ -69,6 +70,7 @@ public class Server {
     public void init(){
         for(int i=0;i<11;i++){
             Packet init_packet=new Packet(sourcelist.get(i));
+            sourcelist.get(i).number++;
             Event init_event=new Event(init_packet,"arrival",this);
             timeline.add(init_event);
             
@@ -138,7 +140,7 @@ public class Server {
     public Packet FIFO(){
         int queue_id=-1;
         long check_time=Long.MAX_VALUE;
-        for(int i=0;i<this.queue.size();i++){
+        for(int i=0;i<11;i++){
           //Below is the for testing purpose
           /* if(this.queue.get(i).isEmpty()){
                System.out.println("queue "+i+ "is empty");

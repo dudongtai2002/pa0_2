@@ -12,7 +12,9 @@ public class Source {
     double rate;
     int packet_size;
     int id;
+    int number;
     public Source(String type,double rate){
+        number=0;
         this.rate=rate;
         this.type=type;
         switch (type){
