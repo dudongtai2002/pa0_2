@@ -18,8 +18,11 @@ public class Server {
     int credit[];// The credit for each queue, used in DRR
     int quantum=9000;//The quantum value for each turn in DRR.
     int total_packet;
+    int each_source_packet[]; //For measure transmission packet of each source
     long total_bits;
+    long each_source_bits[];
     long total_delay;
+    long each_source_delay[]; //For measure the waiting time for packet from each source
     ArrayList<Source> sourcelist=new ArrayList<>();
     boolean busy;
     Packet current_packet;
@@ -52,8 +55,14 @@ public class Server {
             sourcelist.add(rg);
         this.current_queue=0;//make then pointer point at the first one.
         credit=new int[11];  //init the array of credit.
+        each_source_packet=new int[11];
+        each_source_delay=new long[11];
+        each_source_bits=new long[11];
         for(int j=0;j<11;j++){
             credit[j]=0;
+            each_source_packet[j]=0;
+            each_source_delay[j]=0;
+            each_source_bits[j]=0;
         }
     }
     //put the first 11 packet in the timeline
@@ -86,7 +95,9 @@ public class Server {
                  break;
             case "departure": // If the event is departure, record the numbers
                  this.current_packet.transmission_time=this.current_time;
+                 int check_id=this.current_packet.source_id;
                  this.total_packet+=1;
+                 this.each_source_packet[check_id]++;
                  this.total_bits+=current_packet.size;
                  this.total_delay+=current_packet.start_time-current_packet.arrive_time;
                  //send the packet to the universe :)
