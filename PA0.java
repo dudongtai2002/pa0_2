@@ -13,7 +13,7 @@ public class PA0 {
 
     public static void main(String[] args) {
        double offer_load=0.6;
-       Server server=new Server(offer_load,0);
+       Server server=new Server(offer_load,2);
        server.init();
        int i=0;
        while(server.total_packet<=100){

@@ -15,7 +15,8 @@ public class Server {
     ArrayList<LinkedList<Packet>> queue=new ArrayList <>();
     ArrayList<Event> timeline=new ArrayList<> ();
     int current_queue;// The "queue" pointer, used in RR and DRR
-    
+    int credit[];// The credit for each queue, used in DRR
+    int quantum=9000;//The quantum value for each turn in DRR.
     int total_packet;
     long total_bits;
     long total_delay;
@@ -50,7 +51,10 @@ public class Server {
             Source rg=new Source("rogue",(double)Rate/2.0);
             sourcelist.add(rg);
         this.current_queue=0;//make then pointer point at the first one.
-     
+        credit=new int[11];  //init the array of credit.
+        for(int j=0;j<11;j++){
+            credit[j]=0;
+        }
     }
     //put the first 11 packet in the timeline
     public void init(){
@@ -155,12 +159,30 @@ public class Server {
     }        
     public Packet DRR(){
         
-        
-        
-        
-        
-        
-       return null; 
+        int k;
+        credit[current_queue%11]+=quantum;
+        k=0;
+        while(true){
+            //check whether all queue are empty
+            if(k>=11){
+                System.out.println("All queues empty!");
+                return null;
+            }
+            else if(queue.get(current_queue%11).isEmpty()){
+                k++;    
+                credit[current_queue%11]=0;
+                current_queue++;
+                credit[current_queue%11]+=quantum;
+            }else if(queue.get(current_queue%11).element().size>this.credit[current_queue%11]){
+              current_queue++;
+              credit[current_queue%11]+=quantum;
+            }else{
+                credit[current_queue%11]-=queue.get(current_queue%11).element().size;
+                return queue.get(current_queue%11).removeFirst();
+            }
+          }
+             
+      
     }
     //This function put the event at the right position in the timeline
     //not a good algorithnm, can be optimized.
