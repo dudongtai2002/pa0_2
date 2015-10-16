@@ -99,7 +99,9 @@ public class Server {
                  this.total_packet+=1;
                  this.each_source_packet[check_id]++;
                  this.total_bits+=current_packet.size;
+                 this.each_source_bits[check_id]+=this.current_packet.size;        
                  this.total_delay+=current_packet.start_time-current_packet.arrive_time;
+                 this.each_source_delay[check_id]+=this.current_packet.start_time-this.current_packet.arrive_time;
                  //send the packet to the universe :)
                  this.busy=false;current_packet=null;break;
             default:
