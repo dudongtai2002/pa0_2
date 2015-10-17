@@ -16,7 +16,7 @@ public class Server {
     ArrayList<Event> timeline=new ArrayList<> ();
     int current_queue;// The "queue" pointer, used in RR and DRR
     int credit[];// The credit for each queue, used in DRR
-    int quantum=9000;//The quantum value for each turn in DRR.
+    int quantum=2000;//The quantum value for each turn in DRR.
     int total_packet;
     int each_source_packet[]; //For measure transmission packet of each source
     long total_bits;
@@ -71,6 +71,7 @@ public class Server {
         for(int i=0;i<11;i++){
             Packet init_packet=new Packet(sourcelist.get(i));
             sourcelist.get(i).number++;
+            
             Event init_event=new Event(init_packet,"arrival",this);
             timeline.add(init_event);
             
@@ -175,7 +176,8 @@ public class Server {
     public Packet DRR(){
         
         int k;
-        credit[current_queue%11]+=quantum;
+        
+        //credit[current_queue%11]+=quantum;
         k=0;
         while(true){
             //check whether all queue are empty

@@ -12,19 +12,19 @@ package pa0_2;
 public class PA0 {
 
     public static void main(String[] args) {
-       double offer_load=0.4;
-       Server server=new Server(offer_load,2);
+       double offer_load=0.4;   
+       Server server=new Server(offer_load,0);
        server.init();
-       while(server.total_packet<=100){
+       while(server.total_packet<=1000){
            server.flip();// The server would accept next event and move to next state.
            System.out.println("total packet transmitted:"+server.total_packet);
            
        } 
        //Sum result
-       System.out.println(server.total_bits+" bits and "+server.total_delay+"ms"+" "+server.current_time);
+       System.out.println("offer_load= "+offer_load+", total through put="+(double)server.total_bits/server.current_time+"bps and total average packet delay="+server.total_delay/server.total_packet+"s");
        //Result for each source
        for(int i=0;i<11;i++){
-       System.out.println("Source "+i+": packet: "+server.each_source_packet[i]+"tt bits: "+server.each_source_packet[i]+"tt delay: "+server.each_source_delay[i]+"source packet: "+server.sourcelist.get(i).number);    
+       System.out.println("Source "+i+":  through put="+(double)server.each_source_bits[i]/server.current_time+"bps and average packet delay="+server.each_source_delay[i]/server.each_source_packet[i]+"s");    
        }
     }
 }
